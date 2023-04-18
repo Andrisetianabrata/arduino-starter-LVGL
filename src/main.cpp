@@ -1,8 +1,6 @@
 #include <Arduino.h>
-#include <variable.h>
-#include <ui.h>
-#include <ui_structure.hpp>
 #define LGFX_USE_V1
+#include <lvgl.h>
 #include <LovyanGFX.hpp>
 
 class LGFX : public lgfx::LGFX_Device
@@ -202,17 +200,10 @@ void setup()
     lv_indev_drv_register(&indev_drv);
 
     Serial.println("Setup done");
-
-    ui_init();
-    handling_all_event();
-    param.ui_brightness = (int)lv_slider_get_value(ui_brightnessSlider);
 }
 
 void loop()
 {
-    static unsigned long prevMillis = millis();
-    // if(millis() - prevMillis > 1000)
     lv_timer_handler();
-    tft.setBrightness(param.ui_brightness);
     delay(5);
 }
